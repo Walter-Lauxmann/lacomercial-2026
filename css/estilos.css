@@ -227,6 +227,32 @@ h3 {
     border-radius: 0.5rem;
 }
 
+/** Carrito de compras **/
+.carrito {
+    background-color: var(--oscuro);
+    color: var(--blanco);
+}
+
+.carrito table {
+    width: 100%;
+}
+
+.carrito table thead {
+    background-color: var(--secundario);
+    color: var(--blanco);
+}
+
+.carrito table tfoot {
+    background-color: var(--primario);
+    color: var(--oscuro);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.carrito table input {
+    width: 50%;
+}
+
 /** Pié de página **/
 footer {
     text-align: center;
