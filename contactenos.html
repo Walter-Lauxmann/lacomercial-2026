@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Comercial</title>
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/estilos.css" />
+  </head>
+  <body>
+    <header>
+      <h1>La Comercial</h1>
+    </header>
+    <nav class="menu">
+      <div class="contenedor">
+        <ul class="menu-flex">
+          <li><a href="./">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="contactenos.html">Contáctenos</a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="contenedor sombra">
+      <section class="formulario" id="contacto">
+        <h2>Contáctenos</h2>
+        <form action="mailto:info@business.com" method="post">
+          <fieldset>
+            <legend>Por favor, complete el siguiente formulario.</legend>
+            <table class="contenedor-campos">
+              <tr class="campo">
+                <td>
+                  <label for="nombre"> Nombre: </label>
+                </td>
+                <td>
+                  <input
+                    class="input-text"
+                    type="text"
+                    placeholder="Nombre y apellido"
+                    name="nombre"
+                    id="nombre"
+                    required
+                  />
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="direccion"> Dirección: </label>
+                </td>
+                <td>
+                  <input
+                    class="input-text"
+                    type="text"
+                    placeholder="Calle y número"
+                    name="direccion"
+                    id="direccion"
+                  />
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="telefono"> Teléfono: </label>
+                </td>
+                <td>
+                  <input
+                    class="input-text"
+                    type="tel"
+                    name="telefono"
+                    id="telefono"
+                    placeholder="Sin 0 y sin 15"
+                    required
+                  />
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="email"> E-mail: </label>
+                </td>
+                <td>
+                  <input
+                    class="input-text"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="usuario@servidor"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="localidad"> Localidad: </label>
+                </td>
+                <td>
+                  <input
+                    class="input-text"
+                    type="text"
+                    name="localidad"
+                    id="localidad"
+                    placeholder="Localidad"
+                  />
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="provincia">
+                    Provincia:
+                  </label>                  
+                </td>
+                <td>
+                  <input class="input-text" type="text" name="provincia" id="provincia" placeholder="Provincia" />
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="sexo">
+                    Sexo:
+                  </label>
+                </td>
+                <td>
+                  <input class="input-text" type="radio" name="sexo" id="sexo" value="Masculino" />Masculino
+                  <input class="input-text" type="radio" name="sexo" id="sexo" value="Femenino" />Femenino
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="formapago">
+                    Forma de pago:
+                  </label>
+                </td>
+                <td>
+                  <select class="input-text" name="formapago" id="formapago">
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Depósito">Depósito</option>
+                    <option value="Rapipago / Pago Fácil">
+                      Rapipago / Pago Fácil
+                    </option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="mensaje">
+                    Mensaje:
+                  </label>
+                </td>
+                <td>
+                  <textarea
+                    class="input-text"
+                    name="mensaje"
+                    id="mensaje"
+                    placeholder="Escriba el mensaje aquí"
+                  ></textarea>
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <label for="fnac">
+                    Fecha de nacimiento:
+                  </label>
+                </td>
+                <td>
+                  <input class="input-text" type="date" name="fnac" id="fnac" min="2005-01-01" />
+                </td>
+              </tr>
+              <tr class="campo">
+                <td>
+                  <input class="boton" type="submit" value="Enviar" />
+                </td>
+                <td>
+                  <input class="boton" type="reset" value="Borrar" />
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>La Comercial - Todos los derechos reservados - 2026</p>
+    </footer>
+  </body>
+</html>
