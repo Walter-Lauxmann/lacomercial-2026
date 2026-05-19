@@ -235,6 +235,13 @@ h3 {
 
 .carrito table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+.carrito th, .carrito td {
+    padding: 12px;
+    border: 1px solid var(--gris);
+    text-align: left;
 }
 
 .carrito table thead {
@@ -251,6 +258,55 @@ h3 {
 
 .carrito table input {
     width: 50%;
+}
+
+/* --- MODO MÓVIL --- */
+@media screen and (max-width: 600px) {
+  
+  /* Quitamos los bordes de la tabla y ocultamos el encabezado */
+  .carrito table, thead, tbody, tfoot, th, td, tr {
+    display: block;
+  }
+
+  .carrito thead tr {
+    display: none; /* Adiós a los encabezados horizontales */
+  }
+
+  .carrito tr {
+    margin-bottom: 20px;
+    border: 2px solid #007bff; /* Resaltamos cada "producto" */
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .carrito td {
+    border: none;
+    position: relative;
+    padding-left: 50% !important; /* Espacio para el nombre de la columna */
+    text-align: right;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* Insertamos el texto del data-label antes del valor */
+  .carrito td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: 40%;
+    font-weight: bold;
+    text-align: left;
+    color: #555;
+  }
+
+  /* Estilo especial para el footer (Total) */
+  .carrito tfoot tr {
+    border: none;
+    background: #f8f9fa;
+  }
+
+  .carrito tfoot td:first-child {
+    display: none; /* Ocultamos la celda vacía con colspan */
+  }
 }
 
 /** Pié de página **/
