@@ -1,4 +1,4 @@
-productos = [
+export const productos = [
     {
         codigo: 101,
         nombre: 'iPhone SE',
