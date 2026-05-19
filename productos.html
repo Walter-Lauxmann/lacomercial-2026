@@ -26,7 +26,7 @@
       <hr />
       <section class="servicios">
         <article class="servicio">
-          <h3>101 - iPhone SE</h3>
+          <h3><span name="codigo">101</span> - <span name="nombre">iPhone SE</span></h3>
           <div class="servicio-icono">
             <img src="./imagenes/productos/iPhone-SE-Black.jpg" alt="" />
           </div>
@@ -36,11 +36,11 @@
             <img src="./imagenes/photo_camera.svg" alt="" />Cámaras: 7 Mp / 12 Mp<br />
             <img src="./imagenes/aod.svg" alt="" />Pantalla: 4,7 IPS Retina
           </p>
-          <h4>$ 1749999.-</h4>
-          <a href="#" class="boton">Comprar</a>
+          <h4>$ <span name="precio">1749999</span>.-</h4>
+          <button class="boton" onclick="agregar(this)">Comprar</button>
         </article>
         <article class="servicio">
-          <h3>102 - Motorola Moto G100</h3>
+          <h3><span name="codigo">102</span> - <span name="nombre">Motorola Moto G100</span></h3>
           <div class="servicio-icono">
             <img src="./imagenes/productos/Motorola-Moto-G100.jpg" alt="" />
           </div>
@@ -50,11 +50,11 @@
             <img src="./imagenes/photo_camera.svg" alt="" />Cámaras: 13 Mp / 64+16+2 Mp+ToF <br />
             <img src="./imagenes/aod.svg" alt="" />Pantalla: 6,7 FHD+ LTPS
           </p>
-          <h4>$ 749999.-</h4>
-          <a href="#" class="boton">Comprar</a>
+          <h4>$ <span name="precio">749999</span>.-</h4>
+          <button class="boton" onclick="agregar(this)">Comprar</button>
         </article>
         <article class="servicio">
-          <h3>103 - iPhone 11 Pro Plus</h3>
+          <h3><span name="codigo">103</span> - <span name="nombre">iPhone 11 Pro Plus</span></h3>
           <div class="servicio-icono">
             <img src="./imagenes/productos/Iphone-11-Pro-Max.jpg" alt="" />
           </div>
@@ -65,8 +65,8 @@
             <img src="./imagenes/aod.svg" alt="" />Pantalla: 5,8 Super Retina
             XDR - OLED Multi - Touch
           </p>
-          <h4>$ 23289900.-</h4>
-          <a href="#" class="boton">Comprar</a>
+          <h4>$ <span name="precio">23289900</span>.-</h4>
+          <button class="boton" onclick="agregar(this)">Comprar</button>
         </article>        
       </section>
       <section class="carrito">
@@ -79,28 +79,8 @@
             <th>Precio</th>
             <th>Importe</th>
           </thead>
-          <tbody>
-            <tr>
-              <td data-label="Código">101</td>
-              <td data-label="Nombre">iPhone SE</td>
-              <td data-label="Cantidad"><input type="number" name="cantidad1" id="cantidad1" value="0" onchange="calcular()"></td>
-              <td data-label="Precio">$ <span id="precio1">1749999</span>.-</td>
-              <td data-label="Importe">$ <span id="importe1"></span>.-</td>
-            </tr>
-            <tr>
-              <td data-label="Código">102</td>
-              <td data-label="Nombre">Motorola Moto G100</td>
-              <td data-label="Cantidad"><input type="number" name="cantidad2" id="cantidad2" value="0" onchange="calcular()"></td>
-              <td data-label="Precio">$ <span id="precio2">749999</span>.-</td>
-              <td data-label="Importe">$ <span id="importe2"></span>.-</td>
-            </tr>
-            <tr>
-              <td data-label="Código">103</td>
-              <td data-label="Nombre">iPhone 11 Pro Plus</td>
-              <td data-label="Cantidad"><input type="number" name="cantidad3" id="cantidad3" value="0" onchange="calcular()"></td>
-              <td data-label="Precio">$ <span id="precio3">23289900</span>.-</td>
-              <td data-label="Importe">$ <span id="importe3"></span>.-</td>
-            </tr>              
+          <tbody id="lista-tabla">
+                   
           </tbody>
           <tfoot>
             <tr>
