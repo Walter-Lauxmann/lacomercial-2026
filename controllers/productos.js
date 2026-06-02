@@ -11,6 +11,7 @@ const mostrarProductos = () => {
     productos.map(producto => (
         listaProductos.innerHTML += `
         <article class="servicio">
+          <p>${producto.categoria}</p>
           <h3><span name="codigo">${producto.codigo}</span> - <span name="nombre">${producto.nombre}</span></h3>
           <div class="servicio-icono">
             <img src="./imagenes/productos/${producto.imagen}" alt="" />

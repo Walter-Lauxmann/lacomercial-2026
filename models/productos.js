@@ -9,7 +9,8 @@ export const productos = [
             pantalla: '4,7 IPS Retina'
         },
         precio: 1749999,
-        imagen: 'iPhone-SE-Black.jpg'
+        imagen: 'iPhone-SE-Black.jpg',
+        categoria: 'Telefonía'
     },
     {
         codigo: 102,
@@ -21,7 +22,8 @@ export const productos = [
             pantalla: '6,7 FHD+ LTPS'
         },
         precio: 749999,
-        imagen: 'Motorola-Moto-G100.jpg'
+        imagen: 'Motorola-Moto-G100.jpg',
+        categoria: 'Telefonía'
     },
     {
         codigo: 103,
@@ -33,7 +35,8 @@ export const productos = [
             pantalla: '5,8 Super Retina XDR - OLED Multi - Touch'
         },
         precio: 23289900,
-        imagen: 'Iphone-11-Pro-Max.jpg'
+        imagen: 'Iphone-11-Pro-Max.jpg',
+        categoria: 'Telefonía'
     },
 
 ]
