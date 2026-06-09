@@ -138,7 +138,7 @@ const inicializarEventos = () => {
             nombre: document.getElementById('prod-nombre').value,
             categoria: document.getElementById('prod-categoria').value,
             precio: Number(document.getElementById('prod-precio').value),
-            imagen: document.getElementById('prod-imagen').value || 'nodisponible.jpg',
+            imagen: document.getElementById('prod-imagen').value || 'nodisponible.png',
             descripcion: {
                 procesador: document.getElementById('prod-procesador').value,
                 almacenamiento: document.getElementById('prod-almacenamiento').value,
