@@ -26,7 +26,7 @@ export const productos = [
         categoria: 'Telefonía'
     },
     {
-        codigo: 103,
+        codigo: 104,
         nombre: 'iPhone 11 Pro Max',
         descripcion: {
             procesador: 'Chip A13 Bionic',
