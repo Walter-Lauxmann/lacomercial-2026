@@ -22,7 +22,10 @@
       </div>
     </nav>
     <main class="contenedor sombra">
-      <h2>Listado de productos</h2>
+      <div class="titulo-admin-flex">
+        <h2>Listado de productos</h2>
+        <button id="btn-nuevo-producto" class="boton-admin">➕ Cargar Nuevo Producto</button>
+      </div>
       <hr />
       <section class="servicios" id="lista-productos">
                
@@ -50,6 +53,69 @@
         </table>
       </section>
     </main>
+
+    <!-- Diálogo modal para cargar/modificar producto -->
+    <dialog id="dialogo-producto">
+      <form id="form-producto" class="formulario-modal">
+        <h3 id="dialogo-titulo">Cargar Producto</h3>
+        <input type="hidden" id="modo-edicion" value="false" />
+        
+        <div class="campo-modal">
+          <label for="prod-codigo">Código:</label>
+          <input type="number" id="prod-codigo" required min="1">
+        </div>
+        
+        <div class="campo-modal">
+          <label for="prod-nombre">Nombre:</label>
+          <input type="text" id="prod-nombre" required>
+        </div>
+
+        <div class="campo-modal">
+          <label for="prod-categoria">Categoría:</label>
+          <input type="text" id="prod-categoria" required value="Telefonía">
+        </div>
+
+        <div class="campo-modal">
+          <label for="prod-precio">Precio ($):</label>
+          <input type="number" id="prod-precio" required min="0">
+        </div>
+
+        <div class="campo-modal">
+          <label for="prod-imagen">Imagen (ej: default.jpg):</label>
+          <input type="text" id="prod-imagen" placeholder="iPhone-SE-Black.jpg" required>
+        </div>
+
+        <fieldset class="especificaciones-grupo">
+          <legend>Especificaciones</legend>
+          
+          <div class="campo-modal">
+            <label for="prod-procesador">Procesador:</label>
+            <input type="text" id="prod-procesador" required>
+          </div>
+
+          <div class="campo-modal">
+            <label for="prod-almacenamiento">Almacenamiento:</label>
+            <input type="text" id="prod-almacenamiento" required>
+          </div>
+
+          <div class="campo-modal">
+            <label for="prod-camaras">Cámaras:</label>
+            <input type="text" id="prod-camaras" required>
+          </div>
+
+          <div class="campo-modal">
+            <label for="prod-pantalla">Pantalla:</label>
+            <input type="text" id="prod-pantalla" required>
+          </div>
+        </fieldset>
+
+        <div class="form-botones">
+          <button type="submit" class="boton-dialogo guardar">Guardar</button>
+          <button type="button" id="btn-cancelar" class="boton-dialogo cancelar">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
     <footer>
       <p>La Comercial - Todos los derechos reservados - 2026</p>
     </footer>
