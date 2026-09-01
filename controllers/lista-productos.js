@@ -1,4 +1,4 @@
-import { productos as productosIniciales } from '../models/productos.js';
+import { seleccionarProductos } from '../models/productos.js';
 
 const listaProductos = document.querySelector('#lista-productos');
 const btnNuevo = document.getElementById('btn-nuevo-producto');
@@ -9,56 +9,62 @@ const dialogoTitulo = document.getElementById('dialogo-titulo');
 const inputCodigo = document.getElementById('prod-codigo');
 const inputModoEdicion = document.getElementById('modo-edicion');
 
-// Obtener productos de localStorage
-const obtenerProductos = () => {
-    const prodStr = localStorage.getItem('productos');
-    if (!prodStr) {
-        localStorage.setItem('productos', JSON.stringify(productosIniciales));
-        return productosIniciales;
-    }
-    return JSON.parse(prodStr);
-};
-
-// Guardar productos en localStorage
-const guardarProductos = (lista) => {
-    localStorage.setItem('productos', JSON.stringify(lista));
-};
+// Variables
+let productos = [];
+let producto = {}
 
 document.addEventListener("DOMContentLoaded", () => {
     mostrarProductos();
     inicializarEventos();
 });
 
-const mostrarProductos = () => {
+// Obtener productos de localStorage
+const obtenerProductos = async () => {
+    productos = await seleccionarProductos();
+    return productos;
+};
+
+const mostrarProductos = async () => {
     listaProductos.innerHTML = '';
-    const productos = obtenerProductos();
+    productos = await obtenerProductos();
     productos.forEach(producto => {
         listaProductos.innerHTML += `
         <article class="servicio">
-          <p>${producto.categoria}</p>
-          <h3><span name="codigo">${producto.codigo}</span> - <span name="nombre">${producto.nombre}</span></h3>
-          <div class="servicio-icono">
-            <img src="./imagenes/productos/${producto.imagen}" alt="${producto.nombre}" onerror="this.src='./imagenes/productos/default.jpg'; this.onerror=null;" />
-          </div>
-          <p>
-            <img src="./imagenes/memory.svg" alt="" />Procesador: ${producto.descripcion.procesador} <br />
-            <img src="./imagenes/storage.svg" alt="" />Almacenamiento: ${producto.descripcion.almacenamiento} <br />
-            <img src="./imagenes/photo_camera.svg" alt="" />Cámaras: ${producto.descripcion.camaras} <br />
-            <img src="./imagenes/aod.svg" alt="" />Pantalla: ${producto.descripcion.pantalla}
-          </p>
-          <h4>$ <span name="precio">${producto.precio}</span>.-</h4>
-          <button class="boton" onclick="agregar(this)">Comprar</button>
-          
-          <div class="admin-opciones">
-            <button class="boton-card-editar" data-codigo="${producto.codigo}">✏️ Editar</button>
-            <button class="boton-card-eliminar" data-codigo="${producto.codigo}">🗑️ Eliminar</button>
-          </div>
+            <p>${producto.categoria}</p>
+            <h3><span name="codigo">${producto.codigo}</span> - <span name="nombre">${producto.nombre}</span></h3>
+            <div class="servicio-icono">
+                <img src="./imagenes/productos/${producto.imagen}" alt="${producto.nombre}" onerror="this.src='./imagenes/productos/default.jpg'; this.onerror=null;" />
+            </div>
+            <div style="text-align: center">
+                <img src="./imagenes/memory.svg" alt=""> | 
+                <img src="./imagenes/storage.svg" alt=""> | 
+                <img src="./imagenes/photo_camera.svg" alt=""> | 
+                <img src="./imagenes/aod.svg" alt="">
+                <p>${producto.descripcion}</p>
+            </div>
+            <h4>$ <span name="precio">${producto.precio}</span>.-</h4>
+            <button class="boton" onclick="agregar(this)">Comprar</button>
+            
+            <div class="admin-opciones">
+                <button class="boton-card-editar" data-codigo="${producto.codigo}">✏️ Editar</button>
+                <button class="boton-card-eliminar" data-codigo="${producto.codigo}">🗑️ Eliminar</button>
+            </div>
         </article>
         `;
     });
 };
 
-// Métodos de administración requeridos
+// Métodos de administración requeridos //
+// Guardar productos en localStorage
+const guardarProductos = (lista) => {
+    localStorage.setItem('productos', JSON.stringify(lista));
+};
+
+/**
+ * Agrega un nuevo producto a localStorage y vuelve a renderizar
+ * @param {Object} productoNuevo - Objeto con los datos del nuevo producto
+ * @returns {boolean} - true si se insertó correctamente, false si ya existe
+ */
 export const insertar = (productoNuevo) => {
     const productos = obtenerProductos();
     const existe = productos.some(p => Number(p.codigo) === Number(productoNuevo.codigo));
@@ -72,6 +78,12 @@ export const insertar = (productoNuevo) => {
     return true;
 };
 
+/**
+ * Modifica un producto del localStorage y vuelve a renderizar
+ * @param {number} codigo - Código del producto a modificar
+ * @param {Object} productoModificado - Objeto con los datos del producto modificado
+ * @returns {boolean} - true si se modificó correctamente
+ */
 export const modificar = (codigo, productoModificado) => {
     const productos = obtenerProductos();
     const index = productos.findIndex(p => Number(p.codigo) === Number(codigo));
@@ -84,6 +96,12 @@ export const modificar = (codigo, productoModificado) => {
     return false;
 };
 
+
+/**
+ * 
+ * @param {number} codigo - Código del producto a eliminar
+ * @returns {boolean} - true si se eliminó correctamente
+ */
 export const eliminar = (codigo) => {
     if (confirm(`¿Está seguro de que desea eliminar el producto con código ${codigo}?`)) {
         const productos = obtenerProductos();
