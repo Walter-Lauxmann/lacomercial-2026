@@ -17,8 +17,8 @@ export async function seleccionarProductos() {
  * Inserta los datos en la BD
  * @param {*} datos : Los datos a insertar
  */
-export function insertarProducto(datos) {
-    fetch(`${URL}&accion=insertar`, {
+export async function insertarProducto(datos) {
+    let res = await fetch(`${URL}&accion=insertar`, {
         method: 'POST',
         body: datos
     })
@@ -26,5 +26,38 @@ export function insertarProducto(datos) {
     .then(data => {
         console.log(data);
         return data;
+    });
+    return res;
+}
+
+/**
+ * Actualiza los datos en la Base de Datos
+ * @param datos los datos a actualizar
+ * @param id el id del artículo
+ */
+export const actualizarProducto = async (datos, id) => {
+    let res = await fetch(`${URL}&accion=actualizar&id=${id}`, {
+        method: 'POST',
+        body: datos
     })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        return data;
+    });
+    return res;
+}
+
+/**
+ * Elimina los datos en la Base de Datos
+ * @param id el id del artículo
+ */
+export const eliminarProducto = async (id) => {
+    let res = await fetch(`${URL}&accion=eliminar&id=${id}`, {})
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        return data;
+    });
+    return res;
 }

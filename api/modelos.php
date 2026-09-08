@@ -98,8 +98,8 @@ class Modelo extends Conexion {
 
     /**
      * Inserta un registro en la BD
-     * @param $datos: Los datos a insertar
-     * @return $id: El id del registro insertado
+     * @param array $datos: Los datos a insertar
+     * @return int $id: El id del registro insertado
      */
     public function insertar($datos) {
         // INSERT INTO productos (codigo, nombre, descripcion, precio, stock, imagen)
@@ -108,7 +108,7 @@ class Modelo extends Conexion {
         $campos = implode(",",array_keys($datos));
         $valores = implode("','",array_values($datos));
 
-        $sql = "INSERT INTO $this->tabla ($campos) VALUES ($valores)";
+        $sql = "INSERT INTO $this->tabla ($campos) VALUES ('$valores')";
         // echo $sql;
         
         if ($this->db->query($sql)) {
@@ -116,6 +116,30 @@ class Modelo extends Conexion {
         } else {
             return 0;
         }
+    }
+
+    /**
+     * Actualiza un registro en la BD
+     * @param $datos: los datos a modificar
+     */
+    public function actualizar($datos) {
+        // UPDATE productos SET codigo='101', nombre='Samsung A56', ... WHERE id='3'
+        $actualizaciones= [];
+        foreach($datos as $key => $value) {
+            $actualizaciones[] = "$key='$value'";
+        }
+        $sql = "UPDATE $this->tabla SET " . implode(",", $actualizaciones) . " WHERE $this->criterio";
+        //echo $sql; // Mostramos la instrucción SQL
+        $this->db->query($sql);
+    }
+
+    /**
+     * Elimina un registro en la BD
+     */
+    public function eliminar() {
+        // DELETE FROM productos WHERE id='1'
+        $sql = "DELETE FROM $this->tabla WHERE $this->criterio";
+        $this->db->query($sql);
     }
 }
 ?>
