@@ -1,4 +1,7 @@
 <?php
+// Indicamos al cliente (Postman, Browser, React) que devolvemos un JSON
+header("Content-Type: application/json; charset=utf-8");
+
 // Requerimos el archivo modelos.php
 require_once 'modelos.php';
 
@@ -11,7 +14,8 @@ if(isset($_GET['tabla'])) {
     }     
     
     if(isset($_GET['accion'])) {
-        if($_GET['accion'] == 'insertar' || $_GET['accion'] == 'actualizar') {
+        $accion = $_GET['accion'];
+        if($accion == 'insertar' || $accion == 'actualizar') {
             $valores = $_POST;
 
             // **** SUBIDA DE IMÁGENES **** //
@@ -48,10 +52,13 @@ if(isset($_GET['tabla'])) {
             }
         }
 
-        switch($_GET['accion']) {
+        switch($accion) {
             case 'seleccionar':
                 $datos = $tabla->seleccionar(); // Ejecutamos el método seleccionar
-                print_r( $datos );
+                echo json_encode([
+                    'success' => true,
+                    'data' => $datos
+                ]);
                 break;
 
             case 'insertar':
@@ -72,26 +79,41 @@ if(isset($_GET['tabla'])) {
                 break;
 
                case 'actualizar':
-                $tabla->actualizar($valores); // Ejecutamos el método actualizar
+                $resultado = $tabla->actualizar($valores); // Ejecutamos el método actualizar
                 $respuesta = [
-                    'success' => true,
-                    'message' => 'Registro actualizado correctamente.'
+                    'success' => (bool)$resultado,
+                    'message' => $resultado ? 'Registro actualizado correctamente.' : 'Error al actualizar.'
                 ];
                 echo json_encode($respuesta);
                 break;
                 
                case 'eliminar':
-                $tabla->eliminar(); // Ejecutamos el método eliminar)
+                $resultado = $tabla->eliminar(); // Ejecutamos el método eliminar)
                 $respuesta = [
-                    'success' => true,
-                    'message' => 'Registro eliminado correctamente.'
+                    'success' => (bool)$resultado,
+                    'message' => $resultado ? 'Registro eliminado correctamente.' : 'Error al aliminar.'
                 ];
                 echo json_encode($respuesta);
                 break; 
-        }
-    }
 
-    
+                default:
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Acción no válida'
+                    ]);
+                    break;
+        }
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Falta especificar el parámetro accion'
+        ]);
+    }    
+} else {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Falta especificar la tabla'
+    ]);
 }
     
 

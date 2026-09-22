@@ -76,24 +76,22 @@ class Modelo extends Conexion {
     */
     public function seleccionar() {
         // SELECT * FROM productos WHERE id='10' ORDER BY id LIMIT 10
-        $sql = "SELECT $this->campos FROM $this->tabla";
+        $sql = "SELECT {$this->campos} FROM {$this->tabla}";
         // Si hay un criterio, lo agregamos
         if($this->criterio != '') {
-            $sql .= " WHERE $this->criterio";
+            $sql .= " WHERE {$this->criterio}";
         }
         // Agregamos el orden
-        $sql .= " ORDER BY $this->orden";
+        $sql .= " ORDER BY {$this->orden}";
         // Si el $limite es > que 0, agregamos el limite
         if($this->limite > 0) {
-            $sql .= " LIMIT $this->limite";
+            $sql .= " LIMIT {$this->limite}";
         }
         // echo $sql; // Mostramos la instrucción SQL
         // Ejecutamos la instrucción SQL
         $resultado = $this->db->query($sql);
-        $datos = $resultado->fetch_all(MYSQLI_ASSOC); // Guardamos los datos en un Array asociativo
-        $datos = json_encode($datos); // Convertimos los datos a JSON
         // Devolvemos los datos
-        return $datos;
+        return $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : []; // Guardamos los datos en un Array asociativo
     }
 
     /**
@@ -104,11 +102,13 @@ class Modelo extends Conexion {
     public function insertar($datos) {
         // INSERT INTO productos (codigo, nombre, descripcion, precio, stock, imagen)
         // VALUES ('201', 'Motorola G9', 'Un gran teléfono', '450000', '30', 'motorola.jpg')
-        unset($datos->id);
-        $campos = implode(",",array_keys($datos));
+        if(isset($datos['id'])) {
+            unset($datos['id']);
+        }
+        $campos = implode(",",arr)ay_keys($datos));
         $valores = implode("','",array_values($datos));
 
-        $sql = "INSERT INTO $this->tabla ($campos) VALUES ('$valores')";
+        $sql = "INSERT INTO {$this->tabla} ($campos) VALUES ('$valores')";
         // echo $sql;
         
         if ($this->db->query($sql)) {
@@ -128,7 +128,7 @@ class Modelo extends Conexion {
         foreach($datos as $key => $value) {
             $actualizaciones[] = "$key='$value'";
         }
-        $sql = "UPDATE $this->tabla SET " . implode(",", $actualizaciones) . " WHERE $this->criterio";
+        $sql = "UPDATE {$this->tabla} SET " . implode(",", $actualizaciones) . " WHERE {$this->criterio}";
         //echo $sql; // Mostramos la instrucción SQL
         $this->db->query($sql);
     }
@@ -138,7 +138,7 @@ class Modelo extends Conexion {
      */
     public function eliminar() {
         // DELETE FROM productos WHERE id='1'
-        $sql = "DELETE FROM $this->tabla WHERE $this->criterio";
+        $sql = "DELETE FROM {$this->tabla} WHERE {$this->criterio}";
         $this->db->query($sql);
     }
 }
