@@ -18,13 +18,13 @@ if(isset($_GET['tabla'])) {
             if(                                         // Si
                 isset($_FILES) &&                       // Está seteado $_FILES Y
                 isset($_FILES['imagen']) &&             // Está seteado imagen dentro de $_FILES
-                !empty($_FILES['imagen']['name'] &&     // Si NO está vacío el nombre Y
-                !empty($_FILES['imagen']['tmp_name']))  // el nombre temporal
+                !empty($_FILES['imagen']['name']) &&     // Si NO está vacío el nombre Y
+                !empty($_FILES['imagen']['tmp_name'])    // el nombre temporal
             ) {
                 if(is_uploaded_file($_FILES['imagen']['tmp_name'])) {                   // Si está subido el archivo temporal
                     $nombre_temporal = $_FILES['imagen']['tmp_name'];                   // Guardamos el nombre temporal
                     $nombre = $_FILES['imagen']['name'];                                // Guardamos el nombre
-                    $destino = '../imagenes/productos/' . $nombre;                      // Guardamos la carpeta de subida
+                    $destino = '../images/productos/' . $nombre;                        // Guardamos la carpeta de subida
 
                     if(move_uploaded_file($nombre_temporal, $destino)) {                // Si se puede mover el archivo temporal al destino
                         $respuesta = [                                                  // Definimos una respuesta

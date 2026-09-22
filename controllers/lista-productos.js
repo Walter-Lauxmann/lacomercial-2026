@@ -1,4 +1,4 @@
-import { seleccionarProductos, insertarProducto, actualizarProducto, eliminarProducto } from "../modelos/productos.js";
+import { seleccionarProductos, insertarProducto, actualizarProducto, eliminarProducto } from "../models/productos.js";
 
 // Elementos del DOM
 const alerta = document.querySelector('#alerta');
@@ -100,13 +100,13 @@ const mostrarProductos = async () => {
             <article class="servicio">
                 <h3><span name="codigo">${producto.codigo}</span> - <span name="nombre">${producto.nombre}</span></h3>
                 <div class="servicio-icono">
-                    <img src="./imagenes/productos/${producto.imagen || 'nodisponible.png'}" alt="">
+                    <img src="./images/productos/${producto.imagen || 'nodisponible.png'}" alt="">
                 </div>
                 <div style="text-align: center">
-                    <img src="./imagenes/memory.svg" alt=""> | 
-                    <img src="./imagenes/storage.svg" alt=""> | 
-                    <img src="./imagenes/photo_camera.svg" alt=""> | 
-                    <img src="./imagenes/aod.svg" alt="">
+                    <img src="./images/memory.svg" alt=""> | 
+                    <img src="./images/storage.svg" alt=""> | 
+                    <img src="./images/photo_camera.svg" alt=""> | 
+                    <img src="./images/aod.svg" alt="">
                     <p>${producto.descripcion}</p>
                 </div>
                 <h4>$ <span name="precio">${producto.precio}</span>.-</h4>
@@ -155,7 +155,7 @@ const abrirModalModificar = (id) => {
     document.getElementById('prod-precio').value = producto.precio;
     document.getElementById('prod-descripcion').value = producto.descripcion;
 
-    formImagen.src = `./imagenes/productos/${producto.imagen}`;
+    formImagen.src = `./images/productos/${producto.imagen}`;
     
     dialogo.showModal();
 }
