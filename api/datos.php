@@ -4,6 +4,10 @@ header("Content-Type: application/json; charset=utf-8");
 
 // Requerimos el archivo modelos.php
 require_once 'modelos.php';
+require_once 'auth.php';
+
+// 🛑 Barrera de seguridad: Si el token no es válido, corta la ejecución aquí
+//$usuarioAutenticado = validarToken();
 
 // Si hay un parámetro tabla
 if(isset($_GET['tabla'])) {
@@ -53,15 +57,14 @@ if(isset($_GET['tabla'])) {
         }
 
         switch($accion) {
-            case 'seleccionar':
+            case 'seleccionar':                
                 $datos = $tabla->seleccionar(); // Ejecutamos el método seleccionar
-                echo json_encode([
-                    'success' => true,
-                    'data' => $datos
-                ]);
+                echo json_encode($datos);
                 break;
 
             case 'insertar':
+                // Permitido para 'cliente' y 'admin'
+                $usuario = validarToken(['cliente', 'admin']);
                 $id = $tabla->insertar($valores);
                 if($id > 0) {
                     $respuesta = [
@@ -78,7 +81,9 @@ if(isset($_GET['tabla'])) {
                 echo json_encode($respuesta);
                 break;
 
-               case 'actualizar':
+            case 'actualizar':
+                // Permitido para 'cliente' y 'admin'
+                $usuario = validarToken(['cliente', 'admin']);
                 $resultado = $tabla->actualizar($valores); // Ejecutamos el método actualizar
                 $respuesta = [
                     'success' => (bool)$resultado,
@@ -87,7 +92,9 @@ if(isset($_GET['tabla'])) {
                 echo json_encode($respuesta);
                 break;
                 
-               case 'eliminar':
+            case 'eliminar':
+                // Exclusivo para 'admin'
+                $usuario = validarToken(['admin']);
                 $resultado = $tabla->eliminar(); // Ejecutamos el método eliminar)
                 $respuesta = [
                     'success' => (bool)$resultado,
@@ -96,12 +103,12 @@ if(isset($_GET['tabla'])) {
                 echo json_encode($respuesta);
                 break; 
 
-                default:
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Acción no válida'
-                    ]);
-                    break;
+            default:
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Acción no válida'
+                ]);
+                break;
         }
     } else {
         echo json_encode([

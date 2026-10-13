@@ -1,11 +1,27 @@
+import { obtenerToken } from './auth.js';
+
 // URL para acceder a la API
 const URL = './api/datos.php?tabla=productos';
+
+/**
+ * Genera las cabeceras HTTP incluyendo el Token JWT si existe
+ */
+function obtenerHeaders() {
+    const token = obtenerToken();
+    const headers = {};
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+}
 
 /**
 * Selecciona los productos de la BD
 */
 export async function seleccionarProductos() {
-    let res = await fetch(`${URL}&accion=seleccionar`);
+    let res = await fetch(`${URL}&accion=seleccionar`, {
+        headers: obtenerHeaders()
+    });
     let datos = await res.json();
     if(res.status !== 200) {
         throw Error('Los datos no se encontraron');
@@ -20,6 +36,7 @@ export async function seleccionarProductos() {
 export async function insertarProducto(datos) {
     let res = await fetch(`${URL}&accion=insertar`, {
         method: 'POST',
+        headers: obtenerHeaders(),
         body: datos
     })
     .then(res => res.json())
@@ -38,6 +55,7 @@ export async function insertarProducto(datos) {
 export const actualizarProducto = async (datos, id) => {
     let res = await fetch(`${URL}&accion=actualizar&id=${id}`, {
         method: 'POST',
+        headers: obtenerHeaders(),
         body: datos
     })
     .then(res => res.json())
@@ -53,11 +71,14 @@ export const actualizarProducto = async (datos, id) => {
  * @param id el id del artículo
  */
 export const eliminarProducto = async (id) => {
-    let res = await fetch(`${URL}&accion=eliminar&id=${id}`, {})
+    let res = await fetch(`${URL}&accion=eliminar&id=${id}`, {
+        method: 'GET',
+        headers: obtenerHeaders()
+    })
     .then(res => res.json())
     .then(data => {
         console.log(data);
         return data;
     });
-    return res;
+    return await res.json();
 }

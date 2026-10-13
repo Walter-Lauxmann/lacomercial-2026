@@ -72,7 +72,7 @@ class Modelo extends Conexion {
     /**
     * Método de selección
     * Permite seleccionar registros de una tabla de BD
-    * @return $datos
+    * @return array $resultado
     */
     public function seleccionar() {
         // SELECT * FROM productos WHERE id='10' ORDER BY id LIMIT 10
@@ -105,7 +105,14 @@ class Modelo extends Conexion {
         if(isset($datos['id'])) {
             unset($datos['id']);
         }
-        $campos = implode(",",arr)ay_keys($datos));
+        if(isset($datos['password'])) {
+            $password = $datos['password'];
+            // Generamos el hash seguro (cadena de ~60 caracteres)
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $datos['password'] = $password_hash;
+        }
+
+        $campos = implode(",",array_keys($datos));
         $valores = implode("','",array_values($datos));
 
         $sql = "INSERT INTO {$this->tabla} ($campos) VALUES ('$valores')";
@@ -124,6 +131,23 @@ class Modelo extends Conexion {
      */
     public function actualizar($datos) {
         // UPDATE productos SET codigo='101', nombre='Samsung A56', ... WHERE id='3'
+        
+        // Si viene la clave 'id', la quitamos para no intentar actualizar la Clave Primaria
+        if (isset($datos['id'])) {
+            unset($datos['id']);
+        }
+
+        // Gestión inteligente de la contraseña
+        if (isset($datos['password'])) {
+            // Si el campo viene vacío (el usuario solo quería actualizar otros datos)
+            if (trim($datos['password']) === '') {
+                unset($datos['password']); // La quitamos para NO modificar el hash de la BD
+            } else {
+                // Si ingresó una nueva contraseña, la hasheamos
+                $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
+            }
+        }
+        
         $actualizaciones= [];
         foreach($datos as $key => $value) {
             $actualizaciones[] = "$key='$value'";

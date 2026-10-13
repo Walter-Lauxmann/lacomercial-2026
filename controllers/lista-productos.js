@@ -1,4 +1,5 @@
 import { seleccionarProductos, insertarProducto, actualizarProducto, eliminarProducto } from "../models/productos.js";
+import { obtenerUsuarioActual, logout } from "../models/auth.js";
 
 // Elementos del DOM
 const alerta = document.querySelector('#alerta');
@@ -18,24 +19,42 @@ let producto = {};
 let respuesta = {};
 
 document.addEventListener("DOMContentLoaded", ()=> {
+    aplicarRBACEnVista();
     mostrarProductos();
     inicializarEventos();
-})
+});
+
+/**
+ * Control de interfaz basado en roles (RBAC)
+ */
+const aplicarRBACEnVista = () => {
+    const usuario = obtenerUsuarioActual();
+
+    // Si no es admin, ocultamos el botón de crear producto
+    if (!usuario || usuario.rol !== 'admin') {
+        if (btnNuevo) btnNuevo.style.display = 'none';
+    } else {
+        if (btnNuevo) btnNuevo.style.display = 'inline-block';
+    }
+};
 
 const inicializarEventos = () => {
-    // Abrir el modal de creación
-    btnNuevo.addEventListener('click', () => {
-        dialogoTitulo.textContent = 'Cargar Producto';
-        inputModoEdicion.value = 'false';
-        inputCodigo.disabled = false;
-        formProducto.reset();
-        dialogo.showModal();
-    });
-
-    // Cerrar Modal
-    btnCancelar.addEventListener('click', () => {
-        dialogo.close();
-    });
+    if (btnNuevo) {
+        // Abrir el modal de creación
+        btnNuevo.addEventListener('click', () => {
+            dialogoTitulo.textContent = 'Cargar Producto';
+            inputModoEdicion.value = 'false';
+            inputCodigo.disabled = false;
+            formProducto.reset();
+            dialogo.showModal();
+        });
+    }
+    if (btnCancelar){
+        // Cerrar Modal
+        btnCancelar.addEventListener('click', () => {
+            dialogo.close();
+        });
+    }
 
     // Envío del formulario
     formProducto.addEventListener('submit', async (e) => {

@@ -5,4 +5,8 @@
     define('DB_PASS', ''); // Contraseña MySQL
     define('DB_NAME', 'gestionventas_2026'); // Nombre de la Base de Datos
     define('DB_CHARSET', 'utf8mb4'); // Cotejamiento de caracteres
+
+    /* Configuración de Seguridad JWT */
+    define('JWT_SECRET', 'Tu_Clave_Secreta_Super_Segura_2026!'); // Clave de firma
+    define('JWT_EXP', 3600); // El token expira en 1 hora (3600 segundos)
 ?>
