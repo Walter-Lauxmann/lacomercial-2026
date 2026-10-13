@@ -29,13 +29,10 @@ document.addEventListener("DOMContentLoaded", ()=> {
  */
 const aplicarRBACEnVista = () => {
     const usuario = obtenerUsuarioActual();
+    const esAdmin = usuario?.rol === 'admin';
 
-    // Si no es admin, ocultamos el botón de crear producto
-    if (!usuario || usuario.rol !== 'admin') {
-        if (btnNuevo) btnNuevo.style.display = 'none';
-    } else {
-        if (btnNuevo) btnNuevo.style.display = 'inline-block';
-    }
+    if (btnNuevo) btnNuevo.style.display = esAdmin ? 'inline-block' : 'none';
+    return esAdmin;
 };
 
 const inicializarEventos = () => {
@@ -59,6 +56,7 @@ const inicializarEventos = () => {
     // Envío del formulario
     formProducto.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if (!aplicarRBACEnVista()) return;
         
         const id = producto.id;
         const productoData = new FormData(formProducto);
@@ -130,10 +128,10 @@ const mostrarProductos = async () => {
                 </div>
                 <h4>$ <span name="precio">${producto.precio}</span>.-</h4>
                 <button class="boton" onclick="agregar(this)">Comprar</button>                
-                <div class="admin-opciones">
+                ${obtenerUsuarioActual()?.rol === 'admin' ? `<div class="admin-opciones">
                     <button class="boton-card-editar" data-id="${producto.id}">Editar</button>
                     <button class="boton-card-eliminar" data-id="${producto.id}">Eliminar</button>
-                </div>
+                </div>` : ''}
             </article>
         `
     ))
@@ -145,6 +143,7 @@ const mostrarProductos = async () => {
  * @returns {boolean} - true si se eliminó correctamente
  */
 export const eliminar = async (id) => {
+    if (!aplicarRBACEnVista()) return false;
     if(confirm(`¿Está seguro que desea eliminar al producto código ${id}`)) {
         respuesta = await eliminarProducto(id);
         insertarAlerta(respuesta.message, 'danger');
@@ -181,6 +180,7 @@ const abrirModalModificar = (id) => {
 
 // Delegación de eventos para los botones Editar y Eliminar
 listaProductos.addEventListener('click', (e) => {
+    if (!aplicarRBACEnVista()) return;
     const target = e.target;
     if(target.classList.contains('boton-card-editar')) {
         const id = target.dataset.id;

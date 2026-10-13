@@ -71,14 +71,9 @@ export const actualizarProducto = async (datos, id) => {
  * @param id el id del artículo
  */
 export const eliminarProducto = async (id) => {
-    let res = await fetch(`${URL}&accion=eliminar&id=${id}`, {
+    const res = await fetch(`${URL}&accion=eliminar&id=${id}`, {
         method: 'GET',
         headers: obtenerHeaders()
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-        return data;
     });
     return await res.json();
 }

@@ -1,5 +1,20 @@
 // models/auth.js
 const URL_LOGIN = './api/login.php';
+const URL_REGISTRO = './api/registro.php';
+
+/**
+ * Envía los datos del nuevo usuario para insertarlos en la BD
+ * @param {FormData} datosForm 
+ * @returns 
+ */
+export const registrar = async (datosForm) => {
+    const res = await fetch(URL_REGISTRO, {
+        method: 'POST',
+        body: datosForm
+    });
+
+    return await res.json();
+}
 
 /**
  * Inicia sesión enviando usuario y clave a la API

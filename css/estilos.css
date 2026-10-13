@@ -97,7 +97,7 @@ h3 {
 
 /** Sección principal **/
 .principal {
-    background-image: url('../imagenes/slide4.jpeg');
+    background-image: url('../images/slide4.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 450px;

@@ -3,7 +3,6 @@ header("Content-Type: application/json; charset=utf-8");
 require_once 'config.php';
 require_once 'modelos.php';
 
-// Simulación de validación de usuario (aquí consultarías tu tabla 'usuarios')
 $usuario_recibido = $_POST['usuario'] ?? '';
 $pass_recibida = $_POST['password'] ?? '';
 
@@ -17,8 +16,8 @@ if (empty($usuario_recibido) || empty($pass_recibida)) {
     exit;
 }
 
-// Consultamos la tabla 'clientes' usando nuestro Modelo
-$tabla = new Modelo('clientes');
+// Consultamos la tabla 'usuarios' usando nuestro Modelo
+$tabla = new Modelo('usuarios');
 $tabla->setCriterio("usuario='$usuario_recibido'");
 $resultado = $tabla->seleccionar();
 

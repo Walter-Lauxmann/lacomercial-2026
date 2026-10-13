@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/estilos.css" />
+</head>
+<body>
+
+    <main class="contenedor sombra">
+        <h2>Registrarse</h2>
+        <div id="alerta"></div>
+
+        <form class="formulario" id="form-registro">
+            <fieldset>
+                <legend>Por favor, complete el siguiente formulario.</legend>
+                <table class="contenedor-campos">
+                    <tr class="campo">
+                        <td><label for="nombre">Nombre</label></td>
+                        <td><input type="text" class="form-control input-text" id="nombre" name="nombre" placeholder="Nombre" required /></td>
+                    </tr>
+                    <tr class="campo">
+                        <td><label for="apellido">Apellido</label></td>
+                        <td><input type="text" class="form-control input-text" id="apellido" name="apellido" placeholder="Apellido" required /></td>
+                    </tr>
+                    <tr class="campo">
+                        <td><label for="usuario">Usuario</label></td>
+                        <td><input type="text" class="form-control input-text" id="usuario" name="usuario" placeholder="Nombre de usuario" required /></td>
+                    </tr>
+                    <tr class="campo">
+                        <td><label for="password">Password</label></td>
+                        <td><input type="password" class="form-control input-text" id="password" name="password" placeholder="Password" required /></td>
+                    </tr>
+                </table>    
+                <button type="submit" class="boton">Ingresar</button>
+                <p class="text-center">
+                    ¿Ya tenés cuenta?
+                    <a href="login.html">Iniciá sesión acá</a>
+                </p>
+            </fieldset>
+        </form>
+    </main>
+
+    <footer>
+      <p>La Comercial - Todos los derechos reservados - 2026</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./controllers/registro-controlador.js"></script>
+</body>
+</html>

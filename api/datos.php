@@ -6,9 +6,6 @@ header("Content-Type: application/json; charset=utf-8");
 require_once 'modelos.php';
 require_once 'auth.php';
 
-// 🛑 Barrera de seguridad: Si el token no es válido, corta la ejecución aquí
-//$usuarioAutenticado = validarToken();
-
 // Si hay un parámetro tabla
 if(isset($_GET['tabla'])) {
     $tabla = new Modelo($_GET['tabla']); // Creamos el objeto $tabla
@@ -19,9 +16,12 @@ if(isset($_GET['tabla'])) {
     
     if(isset($_GET['accion'])) {
         $accion = $_GET['accion'];
-        if($accion == 'insertar' || $accion == 'actualizar') {
-            $valores = $_POST;
+        if(in_array($accion, ['insertar', 'actualizar', 'eliminar'], true)) {
+            validarToken(['admin']);
+        }
 
+        $valores = $_POST;
+        if($accion == 'insertar' || $accion == 'actualizar') {
             // **** SUBIDA DE IMÁGENES **** //
             if(                                         // Si
                 isset($_FILES) &&                       // Está seteado $_FILES Y
@@ -63,8 +63,6 @@ if(isset($_GET['tabla'])) {
                 break;
 
             case 'insertar':
-                // Permitido para 'cliente' y 'admin'
-                $usuario = validarToken(['cliente', 'admin']);
                 $id = $tabla->insertar($valores);
                 if($id > 0) {
                     $respuesta = [
@@ -82,8 +80,6 @@ if(isset($_GET['tabla'])) {
                 break;
 
             case 'actualizar':
-                // Permitido para 'cliente' y 'admin'
-                $usuario = validarToken(['cliente', 'admin']);
                 $resultado = $tabla->actualizar($valores); // Ejecutamos el método actualizar
                 $respuesta = [
                     'success' => (bool)$resultado,
@@ -93,8 +89,6 @@ if(isset($_GET['tabla'])) {
                 break;
                 
             case 'eliminar':
-                // Exclusivo para 'admin'
-                $usuario = validarToken(['admin']);
                 $resultado = $tabla->eliminar(); // Ejecutamos el método eliminar)
                 $respuesta = [
                     'success' => (bool)$resultado,

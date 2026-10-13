@@ -36,7 +36,9 @@ const inicializarEventos = () => {
 };
 
 /**
- * Muestra alertas visuales dinámicas
+ * Define el mensaje de alerta
+ * @param {*} mensaje El mensaje a mostrar
+ * @param {*} tipo El tipo de alerta (primary, secondary, success, warning, danger, ...)
  */
 const mostrarAlerta = (mensaje, tipo) => {
     alerta.innerHTML = `

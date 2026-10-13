@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-09-2026 a las 16:59:04
+-- Tiempo de generación: 13-10-2026 a las 16:13:31
 -- Versión del servidor: 8.3.0
 -- Versión de PHP: 8.4.13
 
@@ -20,40 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `gestionventas_2026`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `clientes`
---
-
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `apellido` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `cuit` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `iva` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `telefono` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `usuario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nivel` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `direccion`, `cuit`, `iva`, `email`, `telefono`, `usuario`, `password`, `nivel`) VALUES
-(1, 'José', 'De San Martín', 'Yapeyú 1778', '20-17781850-5', 'Res. Inscripto', 'sanmartin@hotmail.com', '341 4254521', 'josesanmartin', '123456', 2),
-(2, 'Manuel', 'Belgrano', 'Rosario 1770', '20-17701820-5', 'Monotributo', 'manuelbelgrano@gmail.com', '3476 625876', 'manuelbelgrano', '654123', 0),
-(3, 'Juana', 'Azurduy', 'Sucre 1780', '27-17801862-0', 'Cons. Final', 'juanitaazur862@live.com', '341 5418563', 'juanaazurduy', '456789', 0),
-(4, 'Gregoria', 'Matorras', 'Orense 1738', '23-17381813-1', 'Resp. Inscripto', 'matorras.g.813@gmail.com', '342 6325498', 'gregoriamatorras', '987654', 0),
-(5, 'Administrador', NULL, NULL, NULL, NULL, NULL, NULL, 'admin', 'admin', 3);
 
 -- --------------------------------------------------------
 
@@ -105,6 +71,42 @@ INSERT INTO `productos` (`id`, `codigo`, `nombre`, `descripcion`, `precio`, `sto
 (27, '15', '15', '15', 15, 0, '15', 0, 0),
 (28, '20', '20', '20                    ', 20, 0, '20', 0, 0),
 (29, '12', '12', 'aaa', 12, 0, '12', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `apellido` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cuit` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `iva` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telefono` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `usuario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `rol` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'cliente',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `usuario` (`usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `direccion`, `cuit`, `iva`, `email`, `telefono`, `usuario`, `password`, `rol`) VALUES
+(1, 'José', 'De San Martín', 'Yapeyú 1778', '20-17781850-5', 'Res. Inscripto', 'sanmartin@hotmail.com', '341 4254521', 'josesanmartin', '$2y$12$aC1xF5gwrv00tDNLi.nf9OEQiqwyEQJyT6vNLAING3KFSh6p58I/W', 'cliente'),
+(2, 'Manuel', 'Belgrano', 'Rosario 1770', '20-17701820-5', 'Monotributo', 'manuelbelgrano@gmail.com', '3476 625876', 'manuelbelgrano', '$2y$12$Jdu3Jg7g1qCj5ZTkipUN0Ox4FoZEsx92qkJHchZ9pvDb9.HfvWDCm', 'invitado'),
+(3, 'Juana', 'Azurduy', 'Sucre 1780', '27-17801862-0', 'Cons. Final', 'juanitaazur862@live.com', '341 5418563', 'juanaazurduy', '$2y$12$WzeKVXb9D1j5wmBVCLj76uoZ0GcwVX.19EKTeMPA5LUvFgyxb/0jW', 'invitado'),
+(4, 'Gregoria', 'Matorras', 'Orense 1738', '23-17381813-1', 'Resp. Inscripto', 'matorras.g.813@gmail.com', '342 6325498', 'gregoriamatorras', '$2y$12$FLFt1uEFKt1s0Oz6RIJ/NOlk90YF72LxGhd.oPDt5V5dPvJpUA6UC', 'invitado'),
+(5, 'Administrador', NULL, NULL, NULL, NULL, NULL, NULL, 'admin', '$2y$12$ppGqFv0ZmZVFXWsWvZUlx.J9KtWocvg06Cw5ifglI578k0mCjyl/a', 'admin'),
+(6, 'Domingo', 'Sarmiento', NULL, NULL, NULL, NULL, NULL, 'dsarmiento', '$2y$12$iNdAqJhqV3l3uAGFeX1XueLUAsBxl1ZMWCBB/xrf1GUT7/YNc48tS', 'admin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

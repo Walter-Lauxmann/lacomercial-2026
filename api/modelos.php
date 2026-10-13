@@ -154,7 +154,7 @@ class Modelo extends Conexion {
         }
         $sql = "UPDATE {$this->tabla} SET " . implode(",", $actualizaciones) . " WHERE {$this->criterio}";
         //echo $sql; // Mostramos la instrucción SQL
-        $this->db->query($sql);
+        return $this->db->query($sql);
     }
 
     /**
